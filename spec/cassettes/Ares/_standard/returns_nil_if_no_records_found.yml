@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi?ico=00000011
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 20 May 2015 11:17:00 GMT
+      Server:
+      - Apache/2.2.10 (Unix) mod_ssl/2.2.10 OpenSSL/0.9.8g DAV/2
+      Cache-Control:
+      - public, no-cache
+      Expires:
+      - Wed, 20 May 2015 23:17:00 GMT
+      Content-Length:
+      - '881'
+      Content-Type:
+      - text/xml
+      X-Pad:
+      - avoid browser bug
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <are:Ares_odpovedi xmlns:are="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer/v_1.0.1" xmlns:dtt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4" xmlns:udt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" odpoved_datum_cas="2015-05-20T13:17:00" odpoved_pocet="1" odpoved_typ="Standard" vystup_format="XML" xslt="klient" validation_XSLT="/ares/xml_doc/schemas/ares/ares_answer/v_1.0.0/ares_answer.xsl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer/v_1.0.1 http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer/v_1.0.1/ares_answer_v_1.0.1.xsd" Id="ares">
+        <are:Odpoved>
+        <are:Pocet_zaznamu>0</are:Pocet_zaznamu>
+        <are:Typ_vyhledani>FREE</are:Typ_vyhledani>
+        </are:Odpoved>
+        </are:Ares_odpovedi>
+    http_version: 
+  recorded_at: Wed, 20 May 2015 11:17:02 GMT
+recorded_with: VCR 2.9.3

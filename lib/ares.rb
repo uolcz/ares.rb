@@ -1,21 +1,26 @@
 require 'httparty'
-require 'multi_xml'
 require 'nokogiri'
 require 'ares/version'
-require 'ares/utils'
-require 'ares/response'
-require 'ares/response_builder'
-
-require 'ares/standard/client'
+require 'ares/errors'
+require 'ares/logging'
+require 'ares/client'
 
 module Ares
-  MultiXml.parser = :nokogiri
+  class << self
+    include Ares::Logging
 
-  def self.types
-    @types ||= {}
-  end
+    # Returns standard client
+    # @returns [Client::Standard]
+    def client
+      @client ||= Client.standard
+    end
 
-  def self.find_by_identification(ico)
-    Standard::Client.find_by(ico: ico)
+    # @see Client::Standard#call
+    # @return [Responses::StandardResponse::Record]
+    def standard(options)
+      response = client.call(options)
+      fail ArgumentError, "Arguments #{options} are invalid" if response.error?
+      response.record
+    end
   end
 end

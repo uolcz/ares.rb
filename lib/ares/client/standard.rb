@@ -1,27 +1,11 @@
+require 'ares/responses/standard_response'
+
 module Ares
-  module Standard
-    # A standard query for an output of the entity's identification data
-    class Client
-      ARES_URI = 'http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi'
+  module Client
+    class Standard
+      ENDPOINT = 'http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi'
 
-      # Search for standard entity's identification data.
-      #
-      # If query returns more entities, only first is used.
-      #
-      # @param (see #fetch)
-      # @return [Ares::Standard::Company]
-      def self.find_by(opts)
-        response = new.fetch(opts)
-        response.first
-      end
-
-      # Search for standard entity's identification data.
-      #
-      # @param (see #fetch)
-      # @return [Ares::Response]
-      def self.find_all(opts)
-        new.fetch(opts)
-      end
+      include Ares::Http
 
       # Search for standard entity's identification data
       #
@@ -39,9 +23,11 @@ module Ares
       # @option opts [String] :typ_vyhledani ('free') Selection priority [free, ico, of]
       # @option opts [Integer] :diakritika (1) [0, 1]
       # @option opts [String] :czk (iso) Encoding [iso, utf]
-      def fetch(opts)
-        response = HTTParty.get(ARES_URI, query: opts)
-        ResponseBuilder.build(response)
+      # @returns [Ares::Responses::StandardResponse]
+      def call(opts)
+        xml = get(ENDPOINT, opts)
+        document = Nokogiri::XML(xml)
+        Ares::Responses::StandardResponse.new(document)
       end
     end
   end

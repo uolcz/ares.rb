@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<are:Ares_odpovedi xmlns:are="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer/v_1.0.1"
+                   xmlns:dtt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4"
+                   xmlns:udt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1"
+                   odpoved_datum_cas="2015-05-18T17:26:35" odpoved_pocet="1" odpoved_typ="Standard" vystup_format="XML"
+                   xslt="klient" validation_XSLT="/ares/xml_doc/schemas/ares/ares_answer/v_1.0.0/ares_answer.xsl"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer/v_1.0.1 http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer/v_1.0.1/ares_answer_v_1.0.1.xsd"
+                   Id="ares">
+  <are:Odpoved>
+    <are:Pocet_zaznamu>1</are:P+ocet_zaznamu>
+    <are:Typ_vyhledani>FREE</are:Typ_vyhledani>
+    <are:Zaznam>
+      <are:Shoda_ICO>
+        <dtt:Kod>9</dtt:Kod>
+      </are:Shoda_ICO>
+      <are:Vyhledano_dle>ICO</are:Vyhledano_dle>
+      <are:Typ_registru>
+        <dtt:Kod>2</dtt:Kod>
+        <dtt:Text>OR</dtt:Text>
+      </are:Typ_registru>
+      <are:Datum_vzniku>2004-08-10</are:Datum_vzniku>
+      <are:Datum_platnosti>2015-05-18</are:Datum_platnosti>
+      <are:Pravni_forma>
+        <dtt:Kod_PF>112</dtt:Kod_PF>
+      </are:Pravni_forma>
+      <are:Obchodni_firma>Účetnictví on-line, s.r.o.</are:Obchodni_firma>
+      <are:ICO>27169278</are:ICO>
+      <are:Identifikace>
+        <are:Adresa_ARES>
+          <dtt:ID_adresy>204437556</dtt:ID_adresy>
+          <dtt:Kod_statu>203</dtt:Kod_statu>
+          <dtt:Nazev_okresu>Hlavní město Praha</dtt:Nazev_okresu>
+          <dtt:Nazev_obce>Praha</dtt:Nazev_obce>
+          <dtt:Nazev_casti_obce>Jinonice</dtt:Nazev_casti_obce>
+          <dtt:Nazev_mestske_casti>Praha 5</dtt:Nazev_mestske_casti>
+          <dtt:Nazev_ulice>Pekařská</dtt:Nazev_ulice>
+          <dtt:Cislo_domovni>628</dtt:Cislo_domovni>
+          <dtt:Typ_cislo_domovni>1</dtt:Typ_cislo_domovni>
+          <dtt:Cislo_orientacni>14</dtt:Cislo_orientacni>
+          <dtt:PSC>15500</dtt:PSC>
+          <dtt:Adresa_UIR>
+            <udt:Kod_oblasti>19</udt:Kod_oblasti>
+            <udt:Kod_kraje>19</udt:Kod_kraje>
+            <udt:Kod_okresu>3100</udt:Kod_okresu>
+            <udt:Kod_obce>554782</udt:Kod_obce>
+            <udt:Kod_pobvod>51</udt:Kod_pobvod>
+            <udt:Kod_sobvod>51</udt:Kod_sobvod>
+            <udt:Kod_casti_obce>490091</udt:Kod_casti_obce>
+            <udt:Kod_mestske_casti>500143</udt:Kod_mestske_casti>
+            <udt:PSC>15500</udt:PSC>
+            <udt:Kod_ulice>507199</udt:Kod_ulice>
+            <udt:Cislo_domovni>628</udt:Cislo_domovni>
+            <udt:Typ_cislo_domovni>1</udt:Typ_cislo_domovni>
+            <udt:Cislo_orientacni>14</udt:Cislo_orientacni>
+            <udt:Kod_adresy>22767541</udt:Kod_adresy>
+            <udt:Kod_objektu>21958491</udt:Kod_objektu>
+            <udt:PCD>310026723</udt:PCD>
+          </dtt:Adresa_UIR>
+        </are:Adresa_ARES>
+      </are:Identifikace>
+      <are:Kod_FU>5</are:Kod_FU>
+      <are:Priznaky_subjektu>NAAANANNNNNNNNNNNNNNPNNNANNNNN</are:Priznaky_subjektu>
+    </are:Zaznam>
+  </are:Odpoved>
+</are:Ares_odpovedi>

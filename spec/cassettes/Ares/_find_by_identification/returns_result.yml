@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi?ico=00000000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 12 May 2015 00:57:04 GMT
+      Server:
+      - Apache/2.2.10 (Unix) mod_ssl/2.2.10 OpenSSL/0.9.8g DAV/2
+      Cache-Control:
+      - public, no-cache
+      Expires:
+      - Tue, 12 May 2015 12:57:04 GMT
+      Content-Length:
+      - '1141'
+      Content-Type:
+      - text/xml
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPGFyZTpB
+        cmVzX29kcG92ZWRpIHhtbG5zOmFyZT0iaHR0cDovL3d3d2luZm8ubWZjci5j
+        ei9hcmVzL3htbF9kb2Mvc2NoZW1hcy9hcmVzL2FyZXNfYW5zd2VyL3ZfMS4w
+        LjEiIHhtbG5zOmR0dD0iaHR0cDovL3d3d2luZm8ubWZjci5jei9hcmVzL3ht
+        bF9kb2Mvc2NoZW1hcy9hcmVzL2FyZXNfZGF0YXR5cGVzL3ZfMS4wLjQiIHht
+        bG5zOnVkdD0iaHR0cDovL3d3d2luZm8ubWZjci5jei9hcmVzL3htbF9kb2Mv
+        c2NoZW1hcy91dmlzX2RhdGF0eXBlcy92XzEuMC4xIiBvZHBvdmVkX2RhdHVt
+        X2Nhcz0iMjAxNS0wNS0xMlQwMjo1NzowNCIgb2Rwb3ZlZF9wb2NldD0iMSIg
+        b2Rwb3ZlZF90eXA9IlN0YW5kYXJkIiB2eXN0dXBfZm9ybWF0PSJYTUwiIHhz
+        bHQ9ImtsaWVudCIgdmFsaWRhdGlvbl9YU0xUPSIvYXJlcy94bWxfZG9jL3Nj
+        aGVtYXMvYXJlcy9hcmVzX2Fuc3dlci92XzEuMC4wL2FyZXNfYW5zd2VyLnhz
+        bCIgeG1sbnM6eHNpPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVt
+        YS1pbnN0YW5jZSIgeHNpOnNjaGVtYUxvY2F0aW9uPSJodHRwOi8vd3d3aW5m
+        by5tZmNyLmN6L2FyZXMveG1sX2RvYy9zY2hlbWFzL2FyZXMvYXJlc19hbnN3
+        ZXIvdl8xLjAuMSBodHRwOi8vd3d3aW5mby5tZmNyLmN6L2FyZXMveG1sX2Rv
+        Yy9zY2hlbWFzL2FyZXMvYXJlc19hbnN3ZXIvdl8xLjAuMS9hcmVzX2Fuc3dl
+        cl92XzEuMC4xLnhzZCIgSWQ9ImFyZXMiPgo8YXJlOk9kcG92ZWQ+CjxhcmU6
+        RXJyb3I+CjxkdHQ6RXJyb3Jfa29kPjc8L2R0dDpFcnJvcl9rb2Q+CjxkdHQ6
+        RXJyb3JfdGV4dD5jaHliYSBsb2dpY2vDvWNoIHZhemViIHZzdHVwbsOtY2gg
+        ZGF0IHYgZG90YXp1IC0gUE9aT1IhIEhyb3rDrSB6YWJsb2tvdsOhbsOtIFZh
+        xaHDrSBJUCBhZHJlc3khIFByb3PDrW0gxI10xJt0ZSBodHRwOi8vd3d3aW5m
+        by5tZmNyLmN6L2FyZXMvYXJlc194bWxfc3RhbmRhcmQuaHRtbC5jeiNtYXg8
+        L2R0dDpFcnJvcl90ZXh0Pgo8L2FyZTpFcnJvcj4KPGFyZTpQb2NldF96YXpu
+        YW11PjA8L2FyZTpQb2NldF96YXpuYW11Pgo8YXJlOlR5cF92eWhsZWRhbmk+
+        RlJFRTwvYXJlOlR5cF92eWhsZWRhbmk+CjwvYXJlOk9kcG92ZWQ+CjwvYXJl
+        OkFyZXNfb2Rwb3ZlZGk+Cg==
+    http_version: 
+  recorded_at: Tue, 12 May 2015 00:57:07 GMT
+recorded_with: VCR 2.9.3
