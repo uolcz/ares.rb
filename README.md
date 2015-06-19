@@ -1,6 +1,6 @@
 # Ares
 
-[![Gem Version](https://badge.fury.io/rb/cnb.png)](http://badge.fury.io/rb/cnb)
+[![Gem Version](https://badge.fury.io/rb/ares.rb.png)](http://badge.fury.io/rb/ares.rb)
 [![Build Status](https://travis-ci.org/ucetnictvi-on-line/ares.rb.png?branch=master)](https://travis-ci.org/ucetnictvi-on-line/ares.rb)
 [![Code Climate](https://codeclimate.com/github/ucetnictvi-on-line/ares.rb/badges/gpa.svg)](https://codeclimate.com/github/ucetnictvi-on-line/ares.rb)
 [![Test Coverage](https://codeclimate.com/github/ucetnictvi-on-line/ares.rb/badges/coverage.svg)](https://codeclimate.com/github/ucetnictvi-on-line/ares.rb/coverage)
