@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/ucetnictvi-on-line/ares.rb/badges/gpa.svg)](https://codeclimate.com/github/ucetnictvi-on-line/ares.rb)
 [![Test Coverage](https://codeclimate.com/github/ucetnictvi-on-line/ares.rb/badges/coverage.svg)](https://codeclimate.com/github/ucetnictvi-on-line/ares.rb/coverage)
 
-Load information about employers from Czech ARES service.
+Ruby client for Czech Registers of Economic Subjects - [ARES](https://cs.wikipedia.org/wiki/Administrativn%C3%AD_registr_ekonomick%C3%BDch_subjekt%C5%AF)
 
 ## Installation
 
