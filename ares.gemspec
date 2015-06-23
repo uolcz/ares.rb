@@ -21,6 +21,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'webmock'
   spec.add_development_dependency 'vcr'
+  spec.add_development_dependency 'rails'
+  spec.add_development_dependency 'ico-validator'
 
   spec.add_runtime_dependency 'httparty'
   spec.add_runtime_dependency 'nokogiri'
