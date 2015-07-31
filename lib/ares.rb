@@ -28,10 +28,9 @@ module Ares
     private
 
     def validate_ico_format(ico)
-      return unless ico.present?
-      validator = ::IcoValidator.new(attributes: [:_])
-      return if validator.send(:valid_ico?, ico)
-      fail ArgumentError, "ICO '#{ico}' is invalid"
+      unless IcoValidation.valid_ico?(ico)
+        fail ArgumentError, "ICO '#{ico}' is invalid"
+      end
     end
   end
 end
