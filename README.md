@@ -1,5 +1,6 @@
 # Ares
 
+[![Inline docs](http://inch-ci.org/github/ucetnictvi-on-line/ares.rb.svg?branch=master)](http://inch-ci.org/github/ucetnictvi-on-line/ares.rb)
 [![Gem Version](https://badge.fury.io/rb/ares.rb.png)](http://badge.fury.io/rb/ares.rb)
 [![Build Status](https://travis-ci.org/ucetnictvi-on-line/ares.rb.png?branch=master)](https://travis-ci.org/ucetnictvi-on-line/ares.rb)
 [![Dependency Status](https://gemnasium.com/ucetnictvi-on-line/ares.rb.svg)](https://gemnasium.com/ucetnictvi-on-line/ares.rb)
