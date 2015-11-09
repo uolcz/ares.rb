@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi?ico=00000011
+    uri: http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi?ico=00000001
     body:
       encoding: US-ASCII
       string: ''

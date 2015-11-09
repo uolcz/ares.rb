@@ -4,6 +4,7 @@ require 'ares/version'
 require 'ares/errors'
 require 'ares/logging'
 require 'ares/client'
+require 'ico-validator'
 
 module Ares
   class << self
@@ -18,9 +19,18 @@ module Ares
     # @see Client::Standard#call
     # @return [Responses::StandardResponse::Record]
     def standard(options)
+      validate_ico_format(options[:ico])
       response = client.call(options)
       fail ArgumentError, "Arguments #{options} are invalid" if response.error?
       response.record
+    end
+
+    private
+
+    def validate_ico_format(ico)
+      unless IcoValidation.valid_ico?(ico)
+        fail ArgumentError, "ICO '#{ico}' is invalid"
+      end
     end
   end
 end

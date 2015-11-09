@@ -6,7 +6,7 @@ describe Ares, :vcr do
   end
 
   let(:valid_ico) { '27169278' }
-  let(:nonexistent_ico) { '00000011' }
+  let(:nonexistent_ico) { '00000001' }
   let(:invalid_ico) { '00000000' }
 
   context '#standard' do
@@ -33,7 +33,7 @@ describe Ares, :vcr do
     it 'fails when wrong ico' do
       expect {
         Ares.standard(ico: invalid_ico)
-      }.to raise_error ArgumentError, /Arguments .* are invalid/
+      }.to raise_error ArgumentError, /ICO '.*' is invalid/
     end
 
     it 'returns nil if no records found' do
