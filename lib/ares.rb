@@ -7,9 +7,14 @@ require 'ares/client'
 require 'ico-validator'
 
 module Ares
+  # Default timeout for Ares requests
   DEFAULT_TIMEOUT = 5
 
   @@timeout = DEFAULT_TIMEOUT
+  # Timout for Ares requests
+  # Example:
+  #   Ares.timeout = 4
+  #   data = Ares.standard(ico: data.ico)
   mattr_accessor :timeout
 
   class << self
