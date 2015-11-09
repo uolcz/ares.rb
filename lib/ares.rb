@@ -7,6 +7,10 @@ require 'ares/client'
 require 'ico-validator'
 
 module Ares
+  cattr_accessor :timeout do
+    5
+  end
+
   class << self
     include Ares::Logging
 
