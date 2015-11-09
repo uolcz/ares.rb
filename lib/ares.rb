@@ -10,12 +10,12 @@ module Ares
   # Default timeout for Ares requests
   DEFAULT_TIMEOUT = 5
 
-  @@timeout = DEFAULT_TIMEOUT
   # Timout for Ares requests
   # Example:
   #   Ares.timeout = 4
   #   data = Ares.standard(ico: data.ico)
   mattr_accessor :timeout
+  self.timeout = DEFAULT_TIMEOUT
 
   class << self
     include Ares::Logging
