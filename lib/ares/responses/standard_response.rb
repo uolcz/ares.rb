@@ -266,8 +266,12 @@ module Ares
           person = elem.at_xpath('./are:Osoba')
           @person = person ? Person.new(person) : nil
 
-          address = elem.at_xpath('./are:Adresa_ARES')
-          @address = address ? AresAddress.new(address) : nil
+          if @person
+            @address = @person.address
+          else
+            address = elem.at_xpath('./are:Adresa_ARES')
+            @address = address ? AresAddress.new(address) : nil
+          end
 
           address = elem.at_xpath('./are:Adr_puv')
           @addr_puv = address ? AresAddress.new(address) : nil
@@ -280,13 +284,13 @@ module Ares
                     :text, :address
 
         def initialize(elem)
-          @title_before = text(elem, 'dtt:Titul_pred')
-          @name = text(elem, 'dtt:Jmeno')
-          @last_name = text(elem, 'dtt:Prijmeni')
-          @title_after = text(elem, 'dtt:Titul_za')
-          @birthdate = text(elem, 'dtt:Datum_narozeni')
-          @personal_id_number = text(elem, 'dtt:Rodne_cislo')
-          @text = text(elem, 'dtt:Osoba_textem')
+          @title_before = elem.at_xpath('./dtt:Titul_pred')
+          @name = elem.at_xpath('./dtt:Jmeno')
+          @last_name = elem.at_xpath('./dtt:Prijmeni')
+          @title_after = elem.at_xpath('./dtt:Titul_za')
+          @birthdate = elem.at_xpath('./dtt:Datum_narozeni')
+          @personal_id_number = elem.at_xpath('./dtt:Rodne_cislo')
+          @text = elem.at_xpath('./dtt:Osoba_textem')
           address = elem.at_xpath('./dtt:Bydliste')
           @address = address ? AresAddress.new(address) : nil
         end
