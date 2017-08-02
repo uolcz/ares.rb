@@ -3,9 +3,6 @@ require 'ares'
 require 'webmock/rspec'
 require 'vcr'
 
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
-
 module ::RSpec
   module_function
   def root
