@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ares
   module Responses
     class TextCode
@@ -19,9 +21,9 @@ module Ares
     end
 
     class Error < TextCode
-      def error?; true end
+      def error?
+        true
+      end
     end
   end
 end
-
-require 'ares/responses/standard_response'

@@ -1,77 +1,32 @@
+##
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/AbcSize
+#
 module Ares
   module Responses
     # Coresponds to <are:Ares_odpovedi> element.
-    class StandardResponse
-      include Enumerable
-
-      # @!attribute [r] xml_document
-      #   @return [String] XML Document returned by ares
-      # @!attribute [r] time
-      #   @return [String] Created at
-      # @!attribute [r] count
-      #   @return [String] Element count
-      # @!attribute [r] type
-      #   @return [String] 'Standard'
-      # @!attribute [r] output_format
-      #   @return [String] 'XML'
-      # @!attribute [r] xslt
-      #   @return [String] 'klient'
-      # @!attribute [r] validation_xslt
-      #   @return [String] Path to xsl document
-      # @!attribute [r] id
-      #   @return [String] ID
-      attr_reader :xml_document, :time, :count, :type,
-                  :output_format, :xslt, :validation_xslt, :id
-
+    class Standard < Base
       def initialize(xml_document)
         @xml_document = xml_document
 
-        attributes = xml_document.root.attributes
-        @time = attributes['odpoved_datum_cas'].to_s
-        @count = attributes['odpoved_pocet'].to_s
-        @type = attributes['odpoved_typ'].to_s # musí být 'Standard'
-        @output_format = (attributes['vystup_format'] || 'XML').to_s
-        @xslt = (attributes['xslt'] || 'klient').to_s
-        @validation_xslt = attributes['validation_XSLT'].to_s
-        @id = attributes['Id'].to_s
+        assign_base_attributes(xml_document.root.attributes)
 
         @content = xml_document.root.children.map { |elem| parse_elem elem }.compact
-      end
-
-      # Returns response with found company
-      # or nil if not found.
-      #
-      # @returns [Response, NilClass] response
-      def response
-        @content.first
-      end
-
-      def record
-        response ? response.records.first : nil
-      end
-
-      def error?
-        any? { |c| c.error? }
-      end
-
-      def each(&block)
-        @content.each(&block)
-      end
-
-      def to_xml
-        @xml_document.to_xml
       end
 
       private
 
       def parse_elem(elem)
-        if elem.name == 'Fault'
+        case elem.name
+        when 'Fault'
           Ares::Responses::Error.new(
-              elem,
-              elem.at_xpath('./faultcode/text()').to_s,
-              elem.at_xpath('./faultstring/text()').to_s
+            elem,
+            elem.at_xpath('./faultcode/text()').to_s,
+            elem.at_xpath('./faultstring/text()').to_s
           )
-        elsif elem.name == 'Odpoved'
+        when 'Odpoved'
           Response.new(elem)
         end
       end
@@ -86,7 +41,8 @@ module Ares
         #   @return [Integer] Responses count
         # @!attribute [r] search_type
         #   @return [String] type of search:
-        #     * FREE - searching by ico, if not found search by RC, if not found find by company's name
+        #     * FREE - searching by ico, if not found search
+        #              by RC, if not found find by company's name
         #     * ICO, RC, OF - search by type, if not found searching ends.
         #     Searching type is shown in (Kod_shody_*) element.
         #
@@ -112,34 +68,37 @@ module Ares
         private
 
         # @param child [Nokogiri::XML::Element] Child element
+        # rubocop:disable Lint/EmptyWhen
         def parse_elem(child)
           case child.name
-            when 'Pomocne_ID'
-              @id = child.value
-            when 'Pocet_zaznamu'
-              @count = child.content.to_i
-            when 'Typ_vyhledani'
-              @search_type = child.content
-            when 'Error'
-              @records << Ares::Responses::Error.new(
-                  child,
-                  child.at_xpath('./Error_kod/text()').to_s,
-                  child.at_xpath('./Error_text/text()').to_s
-              )
-            when 'Zaznam'
-              @records << Record.new(child)
-            when 'text'
-              # do nothing
-            else
-              Ares.logger.warn("#{self}: Unexpected record #{child.name} at #{child.path}")
+          when 'Pomocne_ID'
+            @id = child.value
+          when 'Pocet_zaznamu'
+            @count = child.content.to_i
+          when 'Typ_vyhledani'
+            @search_type = child.content
+          when 'Error'
+            @records << Ares::Responses::Error.new(
+              child,
+              child.at_xpath('./Error_kod/text()').to_s,
+              child.at_xpath('./Error_text/text()').to_s
+            )
+          when 'Zaznam'
+            @records << Record.new(child)
+          when 'text'
+          # do nothing
+          else
+            Ares.logger.warn("#{self}: Unexpected record #{child.name} at #{child.path}")
           end
         end
+        # rubocop:enable Lint/EmptyWhen
       end
 
       # <are:Zaznam> element
       class Record
         # @!attribute [r] match
-        #    @return [Responses::TextCode] <are:Shoda_ICO/RC/OF> Code of matching register ('ICO', 'RC', 'OF')
+        #    @return [Responses::TextCode] <are:Shoda_ICO/RC/OF>
+        #               Code of matching register ('ICO', 'RC', 'OF')
         # @!attribute [r] search_by
         #    @return [String] <are:Vyhledano_dle> Register where record was found
         # @!attribute [r] register_type
@@ -170,9 +129,10 @@ module Ares
         def initialize(elem)
           @match = get_match(elem)
           @search_by = elem.at_xpath('./are:Vyhledano_dle').content
-          @register_type = TextCode.new('RegisterType',
-                                        elem.at_xpath('./are:Typ_registru/dtt:Kod').content,
-                                        elem.at_xpath('./are:Typ_registru/dtt:Text').content)
+          @register_type = TextCode
+                           .new('RegisterType',
+                                elem.at_xpath('./are:Typ_registru/dtt:Kod').content,
+                                elem.at_xpath('./are:Typ_registru/dtt:Text').content)
           date = elem.at_xpath('./are:Datum_vzniku')
           @creation_date = date ? Time.parse(date.content) : nil
           date = elem.at_xpath('./are:Datum_zaniku')
@@ -196,6 +156,7 @@ module Ares
         # @returns [AresAddress, NilClass] Address
         def address
           return unless identification
+
           identification.address
         end
 
@@ -203,17 +164,17 @@ module Ares
 
         def get_match(elem)
           name = code = text = nil
-          if match = elem.at_xpath('./are:Shoda_ICO')
+          if (match = elem.at_xpath('./are:Shoda_ICO'))
             name = 'Match ICO'
             code = match.at_xpath('./dtt:Kod').content
             text = match.at_xpath('./dtt:Text')
             text = (text ? text.content : nil)
-          elsif match = elem.at_xpath('./are:Shoda_RC')
+          elsif (match = elem.at_xpath('./are:Shoda_RC'))
             name = 'Match RC'
             code = match.at_xpath('./dtt:Kod').content
             text = match.at_xpath('./dtt:Text')
             text = (text ? text.content : nil)
-          elsif match = elem.at_xpath('./are:Shoda_OF')
+          elsif (match = elem.at_xpath('./are:Shoda_OF'))
             name = 'Match OF'
             code = match.at_xpath('./dtt:Kod').content
             text = match.at_xpath('./dtt:Text')
@@ -228,13 +189,13 @@ module Ares
 
       # <Pravni_forma> element
       class LegalForm
-        # Typ ekonomického subjektu:
-        # F-fyzická osoba tuzemská,
-        # P-právnická osoba tuzemská,
-        # X-zahraniční právnická osoba,
-        # Z-zahraniční fyzická osoba,
-        # O-fyzická osoba s organizační složkou
-        # C-civilní osoba nepodnikající (v CEU)
+        # Typ ekonomickeho subjektu:
+        # F-fyzicka osoba tuzemska,
+        # P-pravnicka osoba tuzemska,
+        # X-zahranicni pravnicka osoba,
+        # Z-zahranicni fyzicka osoba,
+        # O-fyzicka osoba s organizacni slozkou
+        # C-civilni osoba nepodnikajici (v CEU)
         attr_reader :code, :name, :person, :text, :person_type
 
         def initialize(elem)
@@ -280,8 +241,8 @@ module Ares
 
       # <Osoba> element
       class Person
-        attr_reader :title_before, :name, :last_name, :title_after, :birthdate, :personal_id_number,
-                    :text, :address
+        attr_reader :title_before, :name, :last_name, :title_after,
+                    :birthdate, :personal_id_number, :text, :address
 
         def initialize(elem)
           @title_before = elem.at_xpath('./dtt:Titul_pred')
@@ -299,7 +260,7 @@ module Ares
       # Ares address definition
       # ares_datatypes_v_1.0.4.xsd:788
       class AresAddress
-        # Názvy:
+        # Nazvy:
         # uol ico: 27074358
         # en: http://wwwinfo.mfcr.cz/cgi-bin/ares/ares_sad.cgi?zdroj=0&adr=204437556&jazyk=en
         # cs: http://wwwinfo.mfcr.cz/cgi-bin/ares/ares_sad.cgi?zdroj=0&adr=204437556
@@ -334,11 +295,12 @@ module Ares
         #   @return [Integer] postcode (PSC)
         # @!attribute [r] foreign_postcode
         #   @return [Integer] Foreign postcode (Zahr_PSC)
-        attr_reader :id, :state_code, :state, :territory, :region, :district, :town, :residential_area,
-                    :town_district, :street, :building_number, :sequence_number, :land_registry_number,
+        attr_reader :id, :state_code, :state, :territory, :region, :district,
+                    :town, :residential_area, :town_district, :street,
+                    :building_number, :sequence_number, :land_registry_number,
                     :postcode, :foreign_postcode
 
-        # TODO: Dopřeložit
+        # TODO: localize
 
         # @!attribute [r] pobvod
         #   @return [Integer] (Nazev_pobvodu)
@@ -370,6 +332,8 @@ module Ares
 
         # TODO: localize
         # @param lang [String] ('cz') Language
+        #
+        # rubocop:disable Metrics/BlockNesting
         def to_s(lang = 'cz')
           s = ''
           if street
@@ -383,7 +347,7 @@ module Ares
             end
             s << ", #{postcode} #{town}"
             if residential_area
-              (town =~ /-/) ? s << ',' : s << '-' if town
+              s << (town =~ /-/ ? ',' : '-') if town
               s << residential_area
             end
           else
@@ -409,6 +373,7 @@ module Ares
           end
           s
         end
+        # rubocop:enable Metrics/BlockNesting
 
         private
 
@@ -440,3 +405,9 @@ module Ares
     end
   end
 end
+#
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/AbcSize
+##

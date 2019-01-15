@@ -1,9 +1,23 @@
+# frozen_string_literal: true
+
 require 'httparty'
 require 'nokogiri'
+require 'active_support/core_ext/hash'
+
 require 'ares/version'
 require 'ares/errors'
 require 'ares/logging'
-require 'ares/client'
+require 'ares/http'
+
+require 'ares/responses'
+require 'ares/responses/base'
+require 'ares/responses/standard'
+require 'ares/responses/basic'
+
+require 'ares/client/base'
+require 'ares/client/standard'
+require 'ares/client/basic'
+
 require 'ico-validator'
 
 module Ares
@@ -20,27 +34,30 @@ module Ares
   class << self
     include Ares::Logging
 
-    # Returns standard client
-    # @returns [Client::Standard]
-    def client
-      @client ||= Client.standard
-    end
-
     # @see Client::Standard#call
     # @return [Responses::StandardResponse::Record]
     def standard(options)
       validate_ico_format(options[:ico])
-      response = client.call(options)
-      fail ArgumentError, "Arguments #{options} are invalid" if response.error?
+      response = Client::Standard.call(options)
+      raise ArgumentError, "Arguments #{options} are invalid" if response.error?
+
+      response.record
+    end
+
+    # @see Client::Basic#call
+    # @return [Responses::NoIdeaNow::Record]
+    def basic(options)
+      validate_ico_format(options[:ico])
+      response = Client::Basic.call(options)
+      raise ArgumentError, "Arguments #{options} are invalid" if response.error?
+
       response.record
     end
 
     private
 
     def validate_ico_format(ico)
-      unless IcoValidation.valid_ico?(ico)
-        fail ArgumentError, "ICO '#{ico}' is invalid"
-      end
+      raise ArgumentError, "ICO '#{ico}' is invalid" unless IcoValidation.valid_ico?(ico)
     end
   end
 end
