@@ -1,7 +1,38 @@
 language: ruby
 rvm:
   - 2.3.1
-script: bundle exec rspec
-addons:
-  code_climate:
-    repo_token: 6a9c9df74fe9e772f1d98e955eaacd1804985c563ede95f401962917112884bf
+  - 2.4.5
+  - 2.5.3
+  - 2.6.0
+
+stages:
+  - code-quality
+  - test
+
+jobs:
+  include:
+    - rvm: 2.3.1
+      stage: code-quality
+      script: bundle exec rubocop
+    - rvm: 2.3.1
+      stage: test
+      script: bundle exec rspec
+    - rvm: 2.4.5
+      stage: code-quality
+      script: bundle exec rubocop
+    - rvm: 2.4.5
+      stage: test
+      script: bundle exec rspec
+    - rvm: 2.5.3
+      stage: code-quality
+      script: bundle exec rubocop
+    - rvm: 2.5.3
+      stage: test
+      script: bundle exec rspec
+    - rvm: 2.6.0
+      stage: code-quality
+      script: bundle exec rubocop
+    - rvm: 2.6.0
+      stage: test
+      script: bundle exec rspec
+

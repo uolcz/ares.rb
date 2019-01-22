@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ares
   module Http
     def get(url, params = {})

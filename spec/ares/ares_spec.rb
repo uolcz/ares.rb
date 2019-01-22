@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Ares, :vcr do
@@ -12,7 +14,7 @@ describe Ares, :vcr do
   context '#standard' do
     it 'returns record' do
       response = Ares.standard(ico: valid_ico)
-      expect(response).to be_a(Ares::Responses::StandardResponse::Record)
+      expect(response).to be_a(Ares::Responses::Standard::Record)
     end
 
     it 'contains correct data' do
@@ -31,9 +33,9 @@ describe Ares, :vcr do
     end
 
     it 'fails when wrong ico' do
-      expect {
+      expect do
         Ares.standard(ico: invalid_ico)
-      }.to raise_error ArgumentError, /ICO '.*' is invalid/
+      end.to raise_error ArgumentError, /ICO '.*' is invalid/
     end
 
     it 'returns nil if no records found' do

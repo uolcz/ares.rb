@@ -1,11 +1,11 @@
-require 'ares/responses/standard_response'
+# frozen_string_literal: true
 
 module Ares
   module Client
-    class Standard
+    class Standard < Base
       ENDPOINT = 'http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi'
 
-      include Ares::Http
+      private
 
       # Search for standard entity's identification data
       #
@@ -24,10 +24,8 @@ module Ares
       # @option opts [Integer] :diakritika (1) [0, 1]
       # @option opts [String] :czk (iso) Encoding [iso, utf]
       # @returns [Ares::Responses::StandardResponse]
-      def call(opts)
-        xml = get(ENDPOINT, opts)
-        document = Nokogiri::XML(xml)
-        Ares::Responses::StandardResponse.new(document)
+      def process_response(document)
+        Ares::Responses::Standard.new(document)
       end
     end
   end
